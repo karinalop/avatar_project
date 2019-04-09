@@ -36,7 +36,10 @@ function printAvatarURL(contributors){
   //console.log(contributors);
 
   for(var i = 0; i < contributors.length; i++){
-    console.log(contributors[i].login + " " + contributors[i].avatar_url);
+    //console.log(contributors[i].login + " " + contributors[i].avatar_url);
+    var filePath = "avatars/" + contributors[i].login + ".jpg";
+    var url = contributors[i].avatar_url;
+    downloadImageByURL(url, filePath);
   }
 }
 
@@ -44,15 +47,15 @@ function printAvatarURL(contributors){
 
 function downloadImageByURL(url, filePath) {
   request.get(url)               // Note 1
-       .on('error', function (err) {                                   // Note 2
+       .on('error', function (err) {
          throw err;
        })
-       .on('response', function (response) {                           // Note 3
+       .on('response', function (response) {
          console.log(url);
          })
        .pipe(fs.createWriteStream(filePath));
 }
 
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
+//downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
 
 
