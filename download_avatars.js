@@ -16,29 +16,16 @@ function getRepoContributors(repoOwner, repoName, cb) {
     }
   };
   request(options, function(err, res, body) {
-    cb(err, body);
+    contributors = JSON.parse(body);
+    cb(err, contributors);
   });
 }
 
-/*
-function getRepoContributors(url,callback){
-  request.get(url)               // Note 1
-       .on('error', function (err) {                                   // Note 2
-         throw err;
-       })
-       .on('response', function (response) {
-        console.log(response);
-        var contributors = JSON.parse(response);
-        callback(contributors);
-
-       })
-       .pipe(fs.createWriteStream('./object.txt'));               // Note 4
-}
-*/
 //-------------------------------------------------------
 getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
-  console.log("Result:", result);
+  //console.log(result);
+  printAvatarURL(result);
 });
 
 
@@ -46,10 +33,10 @@ getRepoContributors("jquery", "jquery", function(err, result) {
 
 function printAvatarURL(contributors){
 
-  console.log(contributors);
+  //console.log(contributors);
 
-  for(var i = 0; i <contributors.length; i++){
-    console.log(contributors.avatar_url);
+  for(var i = 0; i < contributors.length; i++){
+    console.log(contributors[i].login + " " + contributors[i].avatar_url);
   }
 }
 
