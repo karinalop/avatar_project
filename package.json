@@ -1,0 +1,14 @@
+{
+  "name": "avatar_project",
+  "version": "1.0.0",
+  "description": "Given a github user and repo download the avatar img for each contributor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karina Lopez",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
