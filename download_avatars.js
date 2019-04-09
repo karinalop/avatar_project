@@ -3,9 +3,17 @@ var fs = require('fs');
 var token = require('./secrets.js');
 
 var args = process.argv;
-//var url = "https://github.com/" + args[2] + "/" + args[3];
-var url = "https://api.github.com/repos/jquery/jquery/contributors";
-console.log(url);
+
+if(args[2] && args[3]){
+  getRepoContributors(args[2], args[3], function(err, result) {
+  console.log("Errors:", err);
+  //console.log(result);
+  printAvatarURL(result);
+});
+
+}
+else console.log("Please input the github user_name and repo");
+
 
 function getRepoContributors(repoOwner, repoName, cb) {
    var options = {
@@ -22,11 +30,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 }
 
 //-------------------------------------------------------
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  //console.log(result);
-  printAvatarURL(result);
-});
+
 
 
 //-------------------------------------------------------
@@ -37,7 +41,7 @@ function printAvatarURL(contributors){
 
   for(var i = 0; i < contributors.length; i++){
     //console.log(contributors[i].login + " " + contributors[i].avatar_url);
-    var filePath = "avatars/" + contributors[i].login + ".jpg";
+    var filePath = "avatars/" + contributors[i].login;
     var url = contributors[i].avatar_url;
     downloadImageByURL(url, filePath);
   }
@@ -50,9 +54,6 @@ function downloadImageByURL(url, filePath) {
        .on('error', function (err) {
          throw err;
        })
-       .on('response', function (response) {
-         console.log(url);
-         })
        .pipe(fs.createWriteStream(filePath));
 }
 
